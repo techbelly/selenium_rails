@@ -4,19 +4,20 @@ module SeleniumRails
 
 	class Runner < Test::Unit::UI::Console::TestRunner
 
+    def self.selenium_session
+      # yuk, yuk, yuk
+      @@session
+    end
+
 		def started(result)
 			super(result)   
-			@seleniumRC = SeleniumRC.new
-			@application = RailsApplication.standard
-			@seleniumRC.start
-			@application.start
+			@@session ||= SeleniumRails::Session.default.new
+			@@session.start
 		end
 	
 		def finished(elapsed_time)
+		  @@session.stop
 			super(elapsed_time)
-			@application.stop
-			Test::Unit::TestCase.close_selenium_sessions
-			@seleniumRC.stop      
 		end
 	end
 

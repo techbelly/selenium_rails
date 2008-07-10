@@ -55,16 +55,13 @@ module SeleniumRails
       command += "&session=#{session}" if session
       uri = URI.parse(command)
       begin
-        puts "CALLING #{uri}"
         request = Net::HTTP::Get.new(uri.path+"?"+uri.query)
         res = Net::HTTP.start(uri.host,uri.port) { |http|
           http.read_timeout = 5
           http.request(request)
         }
-        puts "SUCCESS #{res}"
         return true
       rescue 
-        puts "FAILED"
         return false
       end
     end

@@ -1,8 +1,5 @@
 require 'rake/testtask'                          
 
-Rake.application.options.trace = true
-
-
 namespace :test do
   desc "Starts the java selenium proxy."
   task(:selenium_proxy) do  

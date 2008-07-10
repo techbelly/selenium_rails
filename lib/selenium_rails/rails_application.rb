@@ -4,7 +4,7 @@ module SeleniumRails
   class RailsApplication
   	include WEBrick::HTMLUtils
   	
-  	def self.standard
+  	def self.default
   	 aut_options = {
 		    :port        => 4001,
 		    :ip          => "127.0.0.1",
