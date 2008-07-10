@@ -15,8 +15,15 @@ module SeleniumRails
 			@@session.start
 		end
 	
+	  def start_mediator
+      return @mediator.run_suite
+    rescue Exception => e
+      @@session.stop rescue nil
+      raise e
+    end
+	
 		def finished(elapsed_time)
-		  @@session.stop
+		  @@session.stop rescue nil
 			super(elapsed_time)
 		end
 	end
