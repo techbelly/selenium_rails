@@ -7,7 +7,6 @@ module SeleniumRails
   	def self.default
   	 aut_options = {
 		    :port        => 4001,
-		    :ip          => "127.0.0.1",
 		    :server_root => File.expand_path(RAILS_ROOT + "/public/"),
 		    :working_directory => File.expand_path(RAILS_ROOT)
 		  }

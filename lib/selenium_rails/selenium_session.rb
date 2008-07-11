@@ -1,13 +1,17 @@
 module SeleniumRails
   module Session
    
-   module Infrastructure
+   class Base
+     def initialize(hash)
+       @session = Selenium::SeleniumDriver.new_from_hash(hash)
+     end
+     
      def start
-       @infrastructure.each { |i| i.start }
+       @required_services.each { |i| i.start }
      end
      
      def stop
-       @infrastructure.reverse.each { |i| i.stop }
+       @required_services.reverse.each { |i| i.stop }
      end
      
      def method_missing(method_name,*args)
@@ -19,25 +23,29 @@ module SeleniumRails
      end
    end
    
-   class LocalFirefox
-      include Infrastructure
+   class LocalFirefox < Base
       def initialize
-        @session = Selenium::SeleniumDriver.new("localhost", 4444, "*firefox", "http://localhost:4001", 10000)
-        @infrastructure = RailsApplication.default, SeleniumRC.new, @session
+        super :server_url => "localhost", 
+              :server_port => 4444, 
+              :launcher => "*firefox", 
+              :aut_url => "http://localhost:4001"
+        @required_services = RailsApplication.default, LocalSeleniumRC.new, @session
       end
    end
    
-   class GridIE6
-      include Infrastructure
+   class GridIE6 < Base
       def initialize
         local_ip = IPSocket.getaddress(Socket.gethostname)
-        @session = Selenium::SeleniumDriver.new("localhost", 8444, "*custom /home/theo/bin/ie6", "http://#{local_ip}:4001", 10000)
-        @infrastructure = RailsApplication.default, VirtualBox.new, @session
+        super :server_url => "localhost", 
+              :server_port => 8444, 
+              :launcher => "*custom /home/theo/bin/ie6", 
+              :aut_url => "http://#{local_ip}:4001"
+        @required_services = RailsApplication.default, VirtualBoxRC.new, @session
       end
    end
    
    def default
-     GridIE6
+     LocalFirefox
    end
     
    extend(self)

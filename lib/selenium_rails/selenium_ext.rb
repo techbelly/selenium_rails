@@ -64,7 +64,11 @@ module Selenium
     end
   end
   
+  
   class SeleneseInterpreter
+    def self.new_from_hash(hash)
+      new(hash[:server_url],hash[:server_port],hash[:launcher],hash[:aut_url],10000)
+    end
     include BackwardsCompatability
     include Assertions
     include SeleniumRails::XPathSugar          
