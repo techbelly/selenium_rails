@@ -23,47 +23,42 @@ module SeleniumRails
      end
    end
    
-   class LocalFirefox
-      include Infrastructure
+   class LocalFirefox < Base
       def initialize
         @session = Selenium::SeleniumDriver.new("localhost", 4444, "*firefox", "http://localhost:4001", 10000)
-        @infrastructure = RailsApplication.default, SeleniumRC.new, @session
+        @required_services = RailsApplication.default, SeleniumRC.new, @session
       end
    end
    
-   class GridIE7
-      include Infrastructure
+   class GridIE7 < Base
       def initialize
         local_ip = IPSocket.getaddress(Socket.gethostname)
         @session = Selenium::SeleniumDriver.new("localhost", 4445, "*custom C:\\Program Files\\Internet Explorer\\iexplore.exe", "http://#{local_ip}:4001", 10000)
-        @infrastructure = RailsApplication.default, VirtualBoxRC.new("'Windows XP'",4445), @session
+        @required_services = RailsApplication.default, VirtualBoxRC.new("'Windows XP'",4445), @session
       end
    end
    
-   class GridIE6
-      include Infrastructure
+   class GridIE6 < Base
       def initialize
         local_ip = IPSocket.getaddress(Socket.gethostname)
         @session = Selenium::SeleniumDriver.new("localhost", 4445, "*custom C:\\Program Files\\MultipleIEs\\IE6\\iexplore.exe", "http://#{local_ip}:4001", 10000)
-        @infrastructure = RailsApplication.default, VirtualBoxRC.new("'Windows XP'",4445), @session
+        @required_services = RailsApplication.default, VirtualBoxRC.new("'Windows XP'",4445), @session
       end
    end
    
-   class GridFirefox2
-      include Infrastructure
+   class GridFirefox2 < Base
       def initialize
         local_ip = IPSocket.getaddress(Socket.gethostname)
         @session = Selenium::SeleniumDriver.new("localhost", 4445, "*custom C:\\Program Files\\Firefox\\v2\\firefox.exe", "http://#{local_ip}:4001", 10000)
-        @infrastructure = RailsApplication.default, VirtualBoxRC.new("'Windows XP'",4445), @session
+        @required_services = RailsApplication.default, VirtualBoxRC.new("'Windows XP'",4445), @session
       end
    end
 
-   class GridFirefox3
-      include Infrastructure
+   class GridFirefox3 < Base
       def initialize
         local_ip = IPSocket.getaddress(Socket.gethostname)
         @session = Selenium::SeleniumDriver.new("localhost", 4445, "*custom C:\\Program Files\\Firefox\\v3\\firefox.exe", "http://#{local_ip}:4001", 10000)
-        @infrastructure = RailsApplication.default, VirtualBoxRC.new("'Windows XP'",4445), @session
+        @required_services = RailsApplication.default, VirtualBoxRC.new("'Windows XP'",4445), @session
       end
    end   
    
