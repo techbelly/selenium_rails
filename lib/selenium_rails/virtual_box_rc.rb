@@ -1,5 +1,5 @@
 module SeleniumRails
-  class VirtualBox
+  class VirtualBoxRC
   
     def initialize(vm = "Ubuntu", port = 8444)
       @vm = vm
