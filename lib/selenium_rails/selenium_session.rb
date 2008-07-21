@@ -21,6 +21,10 @@ module SeleniumRails
           @session.send(method_name, *args)
        end
      end
+     
+     def local_ip
+       Socket::getaddrinfo(Socket.gethostname,"echo",Socket::AF_INET)[0][3] 
+     end
    end
    
    class LocalFirefox < Base
@@ -32,7 +36,6 @@ module SeleniumRails
    
    class GridIE7 < Base
       def initialize
-        local_ip = IPSocket.getaddress(Socket.gethostname)
         @session = Selenium::SeleniumDriver.new("localhost", 4445, "*custom C:\\Program Files\\Internet Explorer\\iexplore.exe", "http://#{local_ip}:4001", 10000)
         @required_services = RailsApplication.default, VirtualBoxRC.new("'Windows XP'",4445), @session
       end
@@ -40,7 +43,6 @@ module SeleniumRails
    
    class GridIE6 < Base
       def initialize
-        local_ip = IPSocket.getaddress(Socket.gethostname)
         @session = Selenium::SeleniumDriver.new("localhost", 4445, "*custom C:\\Program Files\\MultipleIEs\\IE6\\iexplore.exe", "http://#{local_ip}:4001", 10000)
         @required_services = RailsApplication.default, VirtualBoxRC.new("'Windows XP'",4445), @session
       end
@@ -48,7 +50,6 @@ module SeleniumRails
    
    class GridFirefox2 < Base
       def initialize
-        local_ip = IPSocket.getaddress(Socket.gethostname)
         @session = Selenium::SeleniumDriver.new("localhost", 4445, "*custom C:\\Program Files\\Firefox\\v2\\firefox.exe", "http://#{local_ip}:4001", 10000)
         @required_services = RailsApplication.default, VirtualBoxRC.new("'Windows XP'",4445), @session
       end
@@ -56,7 +57,6 @@ module SeleniumRails
 
    class GridFirefox3 < Base
       def initialize
-        local_ip = IPSocket.getaddress(Socket.gethostname)
         @session = Selenium::SeleniumDriver.new("localhost", 4445, "*custom C:\\Program Files\\Firefox\\v3\\firefox.exe", "http://#{local_ip}:4001", 10000)
         @required_services = RailsApplication.default, VirtualBoxRC.new("'Windows XP'",4445), @session
       end
