@@ -30,7 +30,7 @@ module SeleniumRails
    class LocalFirefox < Base
       def initialize
         @session = Selenium::SeleniumDriver.new("localhost", 4444, "*firefox", "http://localhost:4001", 10000)
-        @required_services = RailsApplication.default, SeleniumRC.new, @session
+        @required_services = RailsApplication.default, LocalSeleniumRC.new, @session
       end
    end
    
@@ -63,8 +63,8 @@ module SeleniumRails
    end   
    
    def default
-     #LocalFirefox
-     GridIE6
+     LocalFirefox
+     #GridIE6
      #GridFirefox3
    end
     
