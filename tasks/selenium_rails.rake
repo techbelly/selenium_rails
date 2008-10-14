@@ -8,7 +8,7 @@ namespace :test do
   end
 
   desc "Run the acceptance tests in test/selenium"
-  Rake::TestTask.new(:selenium => 'db:test:prepare') do |t|
+  Rake::TestTask.new(:selenium => ['db:migrate','db:test:prepare']) do |t|
     t.libs << "test"
     t.pattern = 'test/selenium/*_test.rb'
     t.verbose = true
